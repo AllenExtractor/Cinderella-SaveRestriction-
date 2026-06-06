@@ -337,5 +337,5 @@ async def get_premium_details(user_id):
             return user
         return None
     except Exception as e:
-        logger.error(f"Error getting premium details for {user_id}: {e}")
+        logger.error(f"Error in getting premium details for {user_id}: {e}")
         return None
