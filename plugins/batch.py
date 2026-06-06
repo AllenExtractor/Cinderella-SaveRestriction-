@@ -396,7 +396,7 @@ async def process_cmd(c, m):
     cmd = m.command[0]
     
     if FREEMIUM_LIMIT == 0 and not await is_premium_user(uid):
-        await m.reply_text("This bot does not provide free servies, get subscription from OWNER")
+        await m.reply_text("𝐓𝐡𝐢𝐬 𝐛𝐨𝐭 𝐝𝐨𝐞𝐬 𝐧𝐨𝐭 𝐩𝐫𝐨𝐯𝐢𝐝𝐞 𝐟𝐫𝐞𝐞 𝐬𝐞𝐫𝐯𝐢𝐞𝐬, 𝐠𝐞𝐭 𝐬𝐮𝐛𝐬𝐜𝐫𝐢𝐩𝐭𝐢𝐨𝐧 𝐟𝐫𝐨𝐦 𝐎𝐖𝐍𝐄𝐑")
         return
     
     if await sub(c, m) == 1: return
