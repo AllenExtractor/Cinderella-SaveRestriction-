@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC as PBK
 from cryptography.hazmat.primitives.ciphers import Cipher as Cp, algorithms as alg, modes as md
 import base64 as b64
 import os as osy
-from config import MASTER_KEY as M1, IV_KEyY as I1
+from config import MASTER_KEY as M1, IV_KEY as I1
 
 def dyk(pwd=M1, slt=I1, l=16):
     pw = pwd.encode()
