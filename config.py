@@ -78,14 +78,14 @@ P0 = {
 # ════════════════════════════════════════════════════════════════════════════════
 
 # VPLink API Key — vplink.in pe account banao, dashboard se copy karo
-VPLINK_API = os.getenv("VPLINK_API", "")
+VPLINK_API = os.getenv("VPLINK_API", "77c2d224b7028974719d3e97d8d05a90eec09922")
 
 # Tumhara bot ka username (@ ke bina) — deep link ke liye zaroori
-BOT_USERNAME = os.getenv("BOT_USERNAME", "YourBotUsername")
+BOT_USERNAME = os.getenv("BOT_USERNAME", "Cinderella_SaveRestrictionBot")
 
-# Token kitne ghante valid rahega (default: 24 ghante)
-TOKEN_VALIDITY_HOURS = int(os.getenv("TOKEN_VALIDITY_HOURS", "24"))
+# Token kitne ghante valid rahega (default: 12 ghante)
+TOKEN_VALIDITY_HOURS = int(os.getenv("TOKEN_VALIDITY_HOURS", "12"))
 
 # ════════════════════════════════════════════════════════════════════════════════
-# ░ DEVGAGAN
+# ░ 𝐓𝐞𝐚𝐦 𝐂𝐢𝐧𝐝𝐞𝐫𝐞𝐥𝐥𝐚
 # ════════════════════════════════════════════════════════════════════════════════
