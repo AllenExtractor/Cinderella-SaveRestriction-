@@ -63,8 +63,8 @@ async def send_token_link(client, message):
         f"⚠️ _Ek token sirf ek baar use ho sakta hai._\n"
         f"💎 Unlimited access ke liye /pay se premium lo.",
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("🔗 Token Lene Ke Liye Click Karo", url=short_url)],
-            [InlineKeyboardButton("💎 Premium Lo", callback_data="see_plan")]
+            [InlineKeyboardButton("🔗 𝗩𝗲𝗿𝗶𝗳𝘆 𝗧𝗼𝗸𝗲𝗻 𝗡𝗼𝘄", url=short_url)],
+            [InlineKeyboardButton("💎 𝗚𝗲𝘁 𝗽𝗲𝗿𝗺𝗮𝗻𝗲𝗻𝘁 𝗣𝗿𝗲𝗺𝗶𝘂𝗺", callback_data="see_plan")]
         ]),
         disable_web_page_preview=True
     )
