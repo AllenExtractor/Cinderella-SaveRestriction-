@@ -74,5 +74,18 @@ P0 = {
 }
 
 # ════════════════════════════════════════════════════════════════════════════════
+# ░ TOKEN SYSTEM — VPLink Integration  ← NAYA SECTION
+# ════════════════════════════════════════════════════════════════════════════════
+
+# VPLink API Key — vplink.in pe account banao, dashboard se copy karo
+VPLINK_API = os.getenv("VPLINK_API", "")
+
+# Tumhara bot ka username (@ ke bina) — deep link ke liye zaroori
+BOT_USERNAME = os.getenv("BOT_USERNAME", "YourBotUsername")
+
+# Token kitne ghante valid rahega (default: 24 ghante)
+TOKEN_VALIDITY_HOURS = int(os.getenv("TOKEN_VALIDITY_HOURS", "24"))
+
+# ════════════════════════════════════════════════════════════════════════════════
 # ░ DEVGAGAN
 # ════════════════════════════════════════════════════════════════════════════════
