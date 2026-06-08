@@ -339,3 +339,100 @@ async def get_premium_details(user_id):
     except Exception as e:
         logger.error(f"Error in getting premium details for {user_id}: {e}")
         return None
+
+
+# ════════════════════════════════════════════════════════════════════════════════
+# ░ TOKEN SYSTEM — VPLink Integration (NAYA SECTION — existing code touch nahi hua)
+# ════════════════════════════════════════════════════════════════════════════════
+
+from config import TOKEN_VALIDITY_HOURS
+
+# MongoDB collection for tokens
+token_collection = db["user_tokens"]
+
+
+async def save_token(user_id: int, token: str):
+    """Naya token DB mein save karo (unverified state)."""
+    try:
+        await token_collection.update_one(
+            {"user_id": user_id},
+            {"$set": {
+                "user_id": user_id,
+                "token": token,
+                "verified": False,
+                "created_at": datetime.now(),
+                "expires_at": None
+            }},
+            upsert=True
+        )
+        return True
+    except Exception as e:
+        logger.error(f"Error saving token for {user_id}: {e}")
+        return False
+
+
+async def verify_token(user_id: int, token: str):
+    """
+    Token verify karo.
+    Returns: (success: bool, message: str)
+    """
+    try:
+        record = await token_collection.find_one({"user_id": user_id})
+
+        if not record:
+            return False, "Koi token nahi mila. Pehle /token command use karo."
+
+        if record.get("token") != token:
+            return False, "Token galat hai. Naya token lo via /token."
+
+        if record.get("verified"):
+            expires_at = record.get("expires_at")
+            if expires_at and datetime.now() < expires_at:
+                remaining = expires_at - datetime.now()
+                hours = int(remaining.total_seconds() // 3600)
+                mins = int((remaining.total_seconds() % 3600) // 60)
+                return False, f"Ye token pehle hi use ho chuka hai. {hours}h {mins}m baaki hai."
+            else:
+                return False, "Token expire ho gaya. Naya token lo via /token."
+
+        # Valid hai — verify karo
+        expiry = datetime.now() + timedelta(hours=TOKEN_VALIDITY_HOURS)
+        await token_collection.update_one(
+            {"user_id": user_id},
+            {"$set": {
+                "verified": True,
+                "verified_at": datetime.now(),
+                "expires_at": expiry,
+                "expireAt": expiry  # MongoDB TTL index
+            }}
+        )
+        await token_collection.create_index("expireAt", expireAfterSeconds=0)
+
+        logger.info(f"Token verified for user {user_id}, expires {expiry}")
+        return True, "Token verified!"
+
+    except Exception as e:
+        logger.error(f"Error verifying token for {user_id}: {e}")
+        return False, f"Error: {str(e)}"
+
+
+async def has_valid_token(user_id: int) -> bool:
+    """Check karo user ke paas valid token hai ya nahi."""
+    try:
+        record = await token_collection.find_one({"user_id": user_id})
+        if not record or not record.get("verified"):
+            return False
+        expires_at = record.get("expires_at")
+        return bool(expires_at and datetime.now() < expires_at)
+    except Exception as e:
+        logger.error(f"Error checking token for {user_id}: {e}")
+        return False
+
+
+async def get_token_details(user_id: int):
+    """User ka token details return karo."""
+    try:
+        return await token_collection.find_one({"user_id": user_id})
+    except Exception as e:
+        logger.error(f"Error getting token details for {user_id}: {e}")
+        return None
