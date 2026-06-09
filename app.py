@@ -13,6 +13,6 @@ def welcome():
     return render_template("welcome.html")
 
 if __name__ == "__main__":
-    # Default to port 5000 if PORT is not set in the environment
-    port = int(os.environ.get("PORT", 5000))
+    # Default to port 8000 if PORT is not set in the environment
+    port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
